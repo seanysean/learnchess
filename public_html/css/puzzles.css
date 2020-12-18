@@ -1,8 +1,6 @@
-.accepted-puzzles {
-    text-align: center;
-}
 .accepted-puzzles h2 {
     font-weight: 100;
+    text-align: center;
 }
 .puzzles-to-review {
     margin-top: 30px;
@@ -56,12 +54,20 @@ body.dark .your-puzzles h3 {
     width: 96px;
     height: 96px;
 }
+.boards {
+    display: grid;
+    grid-gap: 20px;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, var(--board-container-size));
+}
 #chessground {
-    width: 512px;
-    height: 512px;
-    margin: 10px auto;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
     border-radius: 3px;
     overflow: hidden;
+    min-width: 300px;
 }
 .editor-container {
     margin: 30px 0;
@@ -153,6 +159,7 @@ body.dark .editor-container .tools {
 .hidden {
     opacity: 0;
     pointer-events: none;
+    display: none;
 }
 .feedback #response.correct,
 .feedback #response.incorrect {
@@ -347,21 +354,8 @@ body.dark .copy-badge {
 .copy-badge.copied {
     opacity: 1;
 }
-
-@media(max-width: 1180px) {
-    #chessground {
-        width: 400px;
-        height: 400px;
-        margin: 5px auto;
-    }
-    .page .feedback {
-        margin-top: 135px;
-    }
-}
-@media(max-width:950px) {
-    #chessground {
-        width: 300px;
-        height: 300px;
-        margin: 5px auto;
+@media (max-width:1100px) {
+    .responsive-permission {
+        display: none;
     }
 }

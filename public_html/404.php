@@ -41,9 +41,9 @@ include "../include/functions.php";
         <div class="top">
         <?php include "../include/topbar.php" ?>
         </div>
-        <div class="page center">
+        <div class="page full">
             <div class="main">
-                <div class="block transparent">
+                <div class="block">
                     <h1 class="block-title center num">404</h1>
                     <p class="error">Page not found</p>
                     <p class="report">You can report this <a href="/contact">here</a>.</p>

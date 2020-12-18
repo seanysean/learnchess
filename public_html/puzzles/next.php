@@ -29,7 +29,7 @@ if ($l) {
                 if ($count === 0) {
                     //echo "Yes!$candidate";
                     $found = true;
-                    $_SESSION['nextpuzzle'] = $candidate;
+                    $_SESSION['nextpuzzle'] = $candidate + 0;
                     $sql = "UPDATE `users` SET nextpuzzle='$candidate' WHERE id='$me'";
                     $result = mysqli_query($connection,$sql);
                     if ($result) {

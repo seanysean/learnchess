@@ -11,6 +11,8 @@
     --yellow: #ffff05;
     --yellow-accent: #fdfde8;
     --page-width: 50%;
+    --slight-shadow: 1px 2px 2px RGBa(0,0,0,0.1);
+    --board-container-size: 200px;
 }
 
 * {
@@ -21,9 +23,10 @@ body {
     background: var(--background);
     display: grid;
     grid-template: 86px 1fr 34px /  1fr var(--page-width) 1fr;
-    grid-template-areas: ". header ."
-                         ". page ."
-                         ". footer .";
+    grid-template-areas:
+        ". header ."
+        ". page ."
+        ". footer .";
     grid-gap: 20px;
 }
 
@@ -407,8 +410,7 @@ body.dark .button.nocolor::after {
 .top-navigation .main-links .main-dropdown,
 .top-navigation .main-links a,
 .top-navigation .main-links .main-dropdown .dropdown a,
-.top-navigation .icon-links .icon,
-.page .main {
+.top-navigation .icon {
     display: inline-block;
 }
 .top {
@@ -419,6 +421,9 @@ body.dark .button.nocolor::after {
 }
 .top-above a {
     transition: none;
+}
+.top .hidden-icon {
+    display: none;
 }
 .learnchess-link {
     font-size: 20px;
@@ -441,10 +446,14 @@ body.dark .button.nocolor::after {
     color: #555;
 }
 .top-navigation {
-    background: #eaeaea;
+    background: var(--page);
+    display: flex;
+    box-shadow: var(--slight-shadow);
+    padding: 0 10px;
 }
 .top-navigation .main-links {
     font-size: 0;
+    flex-grow: 1;
 }
 .top-navigation .main-links a {
     padding: 20px;
@@ -488,16 +497,13 @@ body.dark .button.nocolor::after {
     opacity: 1;
     pointer-events: auto;
 }
-.top-navigation .icon-links {
-    float: right;
-}
-.top-navigation .icon-links .icon {
+.top-navigation .icon {
     padding: 19px;
     color: #555;
     cursor: pointer;
     font-size: 20px;
 }
-.top-navigation .icon-links .icon::after {
+.top-navigation .icon::after {
     top: 50px;
 }
 .n-container {
@@ -609,6 +615,7 @@ a.notification {
     color: #777;
     display: grid;
     grid-template-columns: 70% 1fr;
+    grid-template-areas: "main right";
     justify-content: space-between;
     grid-area: page;
     grid-gap: 20px;
@@ -621,7 +628,8 @@ a.notification {
     grid-template-columns: 100%;
 }
 .page.has-header {
-    grid-template-areas: "page-header page-header";
+    grid-template-areas: "page-header page-header"
+                         "main right";
 }
 .page.has-header > .block {
     grid-area: page-header;
@@ -637,6 +645,11 @@ a.notification {
 }
 .puzzle-header .block-title {
     margin: 0;
+}
+.page .main {
+    display: grid;
+    width: 100%;
+    grid-area: main;
 }
 .page .main a:not(.uilink):not(.flat-button):not(.button) {
     font-family: "Roboto", sans-serif;
@@ -654,6 +667,9 @@ a.notification {
 }
 .page .left-area {
     display: inline-block;
+}
+.page .right-area {
+    grid-area: right;
 }
 .page .block.sidebar {
     padding: 0;
@@ -682,14 +698,11 @@ a.notification {
 }
 .block {
     background: var(--page);
-    box-shadow: 1px 2px 2px RGBa(0,0,0,0.1);
+    box-shadow: var(--slight-shadow);
     width: 100%;
-    margin-bottom: 30px;
-    padding: 10px;
-    border-radius: 3px;
-}
-.main .block {
     padding: 20px;
+    border-radius: 3px;
+    margin-bottom: 20px;
 }
 .block.no-padding {
     padding: 0;
@@ -703,10 +716,6 @@ a.notification {
     color: #444;
     margin-bottom: 10px;
     margin-top: 0;
-}
-.left-area .block,
-.right-area .block {
-    margin-bottom: 20px;
 }
 .left-area .block-title,
 .right-area .block-title {
@@ -779,13 +788,13 @@ a.notification {
 /* Board container */
 
 .board-container {
-    width: 10vw;
+    width: var(--board-container-size);
     display: inline-block;
     margin: 5px;
 }
 .board-container .board {
-    width: 10vw;
-    height: 10vw;
+    width: var(--board-container-size);
+    height: var(--board-container-size);
     display: block;
     overflow: hidden;
 }
@@ -799,6 +808,7 @@ a.notification {
     font-family: "Roboto",sans-serif;
     border: 1px solid #eee;
     transition: 0.1s linear;
+    text-align: center;
 }
 .board-container .board:hover + .credits {
     background: #f3f3f3;
@@ -807,7 +817,7 @@ a.notification {
 /* Footer */
 
 footer {
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #adadad;
     padding-top: 10px;
     color: #555;
     grid-area: footer;
@@ -832,5 +842,64 @@ footer .site-name {
 @media (max-width: 1300px) {
     :root {
         --page-width: 65%;
+        --board-container-size: 152px;
+    }
+}
+@media (max-width: 1050px) {
+    .top-navigation .icon {
+        padding: 19px 15px;
+    }
+    .top-navigation .main-links a {
+        padding: 20px 15px;
+    }
+}
+@media (max-width: 950px) {
+    .permission-only {
+        display: none !important;
+    }
+}
+@media (max-width: 820px) {
+    :root {
+        --board-container-size: 128px;
+    }
+}
+@media (max-width: 780px) {
+    :root {
+        --page-width: 90%;
+    }
+}
+@media (max-width: 600px) {
+    .page {
+        grid-template-columns: 100%;
+        grid-template-areas: "main"
+                              "right"
+    }
+    .main {
+        row-gap: 20px;
+    }
+    .top .hidden-icon {
+        display: block;
+    }
+    .top .hidden-text {
+        display: none;
+    }
+    .top-navigation .main-links a {
+        padding: 0;
+    }
+    .block {
+        margin-bottom: 0;
+    }
+}
+@media (max-width: 425px) {
+    footer .responsive {
+        display: none;
+    }
+}
+@media (max-width: 400px) {
+    .top-navigation {
+        padding: 0 10px;
+    }
+    .top-navigation .icon {
+        padding: 19px 10px;
     }
 }

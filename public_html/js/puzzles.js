@@ -1,5 +1,6 @@
 let res = $('#response'),
-    board = $('#chessground');
+    board = $('#chessground'),
+    mainHTML = $('#main');
 const chess = new Chess(fen), config = {
     fen: fen,
     coordinates: false,
@@ -45,9 +46,14 @@ function showResponse(s,c,r,d,e) {
         res.classList = 'correct';
     } else if (c) {
         let viewExplainEl, explainEl;
-        $('#copyings').classList.remove('hidden');
-        $('#next').classList.remove('hidden');
-        $('#credits').classList.remove('hidden');
+        $('#copyings').style.display = 'block';
+        $('#next').style.display = 'block';
+        $('#credits').style.display = 'block';
+        setTimeout(()=>{
+            $('#copyings').classList.remove('hidden');
+            $('#next').classList.remove('hidden');
+            $('#credits').classList.remove('hidden');
+        },250);
         if (e) {
             viewExplainEl = document.createElement('span');
             explainEl = document.createElement('div');
@@ -240,6 +246,15 @@ cg.set({
     }
 });
 
+function updateBoardSize() {
+    let width = mainHTML.offsetWidth - 40;
+    if (width % 8 !== 0) {
+        width -= width % 8; // Multiples of 8 are better for the board display
+    }
+    board.style.height = board.style.width = width + 'px';
+    cg.redrawAll();
+}
+
 $('#puzzleURL').value = window.location.href;
 
 res.innerHTML = `<i class="fa fa-info-circle"></i> ${turn} to move`;
@@ -261,3 +276,7 @@ $('.copy-on-click',true).forEach((el,i)=>{
         },2000);
     });
 });
+
+window.addEventListener('resize',updateBoardSize);
+
+updateBoardSize();

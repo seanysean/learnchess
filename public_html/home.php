@@ -63,10 +63,12 @@ if ($l) {
                     <a href="puzzles/view/3"><div id="puzzleOfTheDay"></div></a>
                 </div>-->
                 <div class="block no-padding do-stuff">
-                    <h1 class="block-title center"><?php echo $_SESSION['username'] ?></h1>
-                    <a href="/coordinates"><i class="fa fa-delicious"></i> Coordinates</a>
+                    <h1 class="block-title center">Links</h1>
                     <a href="/puzzles/new"><i class="fa fa-puzzle-piece"></i> Submit a puzzle</a>
                     <a href="/settings/profile"><i class="fa fa-edit"></i> Edit profile</a>
+                    <a href="https://github.com/seanysean/learnchess/issues/new" target="_blank">
+                        <i class="fa fa-bug"></i> Report a bug
+                    </a>
                 </div>
             </div>
         </div>

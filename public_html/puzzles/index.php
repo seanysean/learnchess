@@ -51,29 +51,23 @@ if ($l) {
         <div class="page">
             <div class="main">
                 <div class="block">
-                    <h1 class="block-title">Approved puzzles<?php if($l and isAllowed('puzzle')) { ?>
-                        <span class="alternate">
-                            <a class="button <?php if($unreviewedCount > 0) { echo "blue"; } else { echo "disabled"; } ?>" <?php if($unreviewedCount > 0) { echo "href=\"review\""; } ?>><span><i class="fa fa-dashboard"></i> Review new puzzles <?php if($unreviewedCount > 0) { echo "($unreviewedCount)"; } ?></a>
-                        </span>
-                    <?php } ?>
-                    </h1>
-                    <div class="accepted-puzzles">
-                    <h2>Recent puzzles</h2>
+                    <h1 class="block-title center">Recent puzzles</h1>
                     <?php
                     $sql = "SELECT * FROM `puzzles_approved` WHERE removed='0' ORDER BY id DESC LIMIT 6";
-                    echo generatePuzzlePositions($sql);
+                    echo "<div class=\"boards\">".generatePuzzlePositions($sql)."</div>";
                     ?>
-                    <h2>Top puzzles</h2>
+                </div>
+                <div class="block">
+                    <h1 class="block-title center">Top puzzles</h1>
                     <?php
                     $sql = "SELECT * FROM `puzzles_approved` WHERE removed='0' ORDER BY trophies DESC LIMIT 6";
                     $boards = generatePuzzlePositions($sql);
                     $result = mysqli_query($connection,$sql);
                     if ($boards) {
-                        echo $boards;
+                        echo "<div class=\"boards\">$boards</div>";
                     } else {
                         echo "<p class=\"nothing-to-see lower center\">No approved puzzles. <a href=\"new\">Why not make one?</a></p>";
                     } ?>
-                    </div>
                 </div>
             </div>
             <div class="right-area">
@@ -82,7 +76,7 @@ if ($l) {
                 </div>
                 <div class="block">
                 <?php if($l && $contributed_count) { ?>
-                    <h1 class="block-title">Your puzzles <span class="alternate" data-hint="Create new puzzle"><a href="new" class="button blue"><span><i class="fa fa-plus"></i></span></a></span></h1>
+                    <h1 class="block-title">Submitted puzzles</h1>
                     <div class="your-puzzles">
                         <?php
                         $sql = "SELECT id FROM `puzzles_to_review` WHERE author_id='$myID'";
@@ -112,6 +106,7 @@ if ($l) {
                             <a href="view/<?php echo $puzzleID ?>" data-fen="<?php echo $fen ?>" class="puzzle">Puzzle <?php echo $puzzleID ?></a>
                         <?php } ?>
                     </div>
+                    <a href="new" class="button green"><span>Create new puzzle <i class="fa fa-plus"></i></span></a>
                 <?php } else if (!$l) { ?>
                     <h1 class="block-title">Contribute</h1>
                     <p><a href="/register">Register</a> to start creating puzzles!</p>
@@ -119,7 +114,7 @@ if ($l) {
                     <a href="new" class="full button blue"><span><i class="fa fa-plus"></i> New puzzle</span></a>
                 <?php } ?>
                 </div>
-                <?php if ($devMode) { // Waiting for more users before bringing out the Leaderboard. Or perhaps it will never come ?><div class="block">
+                <?php if (false && $devMode) { // Waiting for more users before bringing out the Leaderboard. Or perhaps it will never come ?><div class="block">
                     <h1 class="block-title">Leaderboard</h1>
                     <ol class="leaderboard">
                     <?php $sql = "SELECT rating,id FROM `users` WHERE NOT active='0' ORDER BY rating DESC LIMIT 5";

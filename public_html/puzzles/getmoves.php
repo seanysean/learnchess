@@ -9,7 +9,7 @@ if(isset($_GET['move']) && isset($_GET['movenum']) && isset($_GET['puzzle'])) {
     $puzzle_preview = isset($_GET['preview']) && $_GET['preview'] === 'true';
     $move = secure($_GET['move']);
     $movenum = secure($_GET['movenum']);
-    $puzzle = secure($_GET['puzzle']);
+    $puzzle = secure($_GET['puzzle']) + 0;
     $table = $puzzle_preview ? 'puzzles_to_review' : 'puzzles_approved';
     $sql = "SELECT fen,pgn FROM `$table` WHERE id='$puzzle'";
     $result = mysqli_query($connection,$sql);

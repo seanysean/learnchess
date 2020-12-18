@@ -50,7 +50,7 @@ if ($pgn === NULL) {
                 <h1 class="block-title center"><i class="fa fa-puzzle-piece"></i> Puzzle <?php echo $pID; if ($is_preview) { echo '<span style="opacity:0.7"> Preview</span>'; } ?></h1>
             </div>
             <?php } ?>
-            <div class="main">
+            <div class="main" id="main">
                 <?php if ($removed) { ?>
                 <div class="block">
                     <h1 class="block-title center"><i class="fa fa-puzzle-piece"></i> Puzzle <?php echo $pID ?></h1>
